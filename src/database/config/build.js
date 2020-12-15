@@ -8,4 +8,5 @@ const buildDB = () => {
   return connection.query(sql).then(() => connection.query(fackdata));
 };
 
+
 module.exports = buildDB;
