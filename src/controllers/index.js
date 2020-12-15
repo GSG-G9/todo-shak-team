@@ -40,7 +40,7 @@ module.exports.loginUserController = (req, res, next) =>{
 // bcrypt.compare (password, stored)
 // create token
 // send token to user
-  let id =0;
+  
 	checkEmail(email)
 	.then(({rowCount, rows}) => {
 		if(!rowCount){
@@ -49,6 +49,7 @@ module.exports.loginUserController = (req, res, next) =>{
 		return Promise.all([bcrypt.compare(password, rows[0].password), Promise.resolve(rows[0].id)])
 	})
 	.then((result) => {
+		console.log("fkjgfkdfgkd" , result);
 		if (!result[0]){
 			throw new Error("incorrect password");
 		}
