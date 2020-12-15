@@ -1,0 +1,17 @@
+language: node_js
+
+node_js:
+  - '14.15.1'
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c "create database db_test_todo;" -U postgres
+  - psql -c "create user db1_week7 with password '12';" -U postgres
+env: 
+  global:
+  - PGPORT=5432
+test:
+  adapter: postgresql
+  database: db_test_posts
