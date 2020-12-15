@@ -1,5 +1,5 @@
 const {
-	getUserById,
+	getUserId,
 	insertUser,
 	getTodos,
 	deleteTodo,
@@ -8,7 +8,7 @@ const {
 
 module.exports.getUserController = (req, res, next) => {
 	const userId = 1;
-	return getUserById(userId)
+	return getUserId(userId)
 		.then(({ rows }) =>
 			res.json({ data: rows[0].user_name, msg: 'success', status: 200 })
 		)
