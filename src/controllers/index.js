@@ -32,12 +32,46 @@ module.exports.getUserController = (req, res, next) => {
 // create token
 // send to user
 
+
+module.exports.loginUserController = (req, res, next) =>{
+	const { email, password } = req.body;
+//validate server
+// check email ()=>{stored hash password}
+// bcrypt.compare (password, stored)
+// create token
+// send token to user
+  let id =0;
+	checkEmail(email)
+	.then(({rowCount, rows}) => {
+		if(!rowCount){
+			throw new Error("you are not registered yet");
+		}
+		return Promise.all([bcrypt.compare(password, rows[0].password), Promise.resolve(rows[0].id)])
+	})
+	.then((result) => {
+		if (!result[0]){
+			throw new Error("incorrect password");
+		}
+		return jwtSign({ userId: result[1]}, "asdfghjlhf'124662ewrh")
+	})
+	.then((token) =>
+	res
+		.cookie("userToken", token, {
+			expires: new Date(Date.now() + 3600000),
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+		})
+		.json({ data: null, msg: "logged in successfully", status: 200 })
+)
+.catch(next);
+
+}
 module.exports.registerUserController = (req, res, next) => {
   const { userName, email, password, confirmPassword } = req.body;
   checkEmail(email)
     .then(({ rowCount }) => {
       if (rowCount) {
-        throw new Error("You are register");
+        throw new Error("You are registered");
       }
       return bcrypt.hash(password, 10);
     })

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const {
+  loginUserController,
 	getUserController,
 	registerUserController,
   insertTodoController,
@@ -8,6 +9,7 @@ const {
   deleteTodoController
 } = require('../controllers');
 
+router.post('/login', loginUserController);
 router.get('/user', getUserController);
 router.post('/register', registerUserController);
 router.post('/todo', insertTodoController);
