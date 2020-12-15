@@ -22,6 +22,7 @@ app.set("port", process.env.PORT || 5555);
 app.use(router);
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(500).send();
 });
 

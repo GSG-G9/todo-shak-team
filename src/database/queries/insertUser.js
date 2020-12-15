@@ -3,7 +3,7 @@ const connection = require("../config/connection");
 
 const insertUser = (user_name, email, password) => {
   return connection.query({
-    text: "INSERT INTO users (user_name, email, password) VALUES ($1,$2,$3)",
+    text: "INSERT INTO users (user_name, email, password) VALUES ($1,$2,$3) RETURNING id",
     values: [user_name, email, password],
   });
 };
