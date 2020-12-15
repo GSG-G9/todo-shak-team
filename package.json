@@ -9,7 +9,10 @@
 	"scripts": {
 		"test": "NODE_ENV=test jest --passWithNoTests  --detectOpenHandles",
 		"dev": "NODE_ENV=development node src/index.js",
-		"start": "NODE_ENV=production node src/index.js"
+		"start": "NODE_ENV=production node src/index.js",
+		"buildD": "NODE_ENV=development node src/database/config/index.js",
+		"buildT": "NODE_ENV=test node src/database/config/index.js",
+		"buildP": "NODE_ENV=production node src/database/config/index.js"
 	},
 	"repository": {
 		"type": "git",
