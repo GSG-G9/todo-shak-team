@@ -1,0 +1,44 @@
+{
+	"name": "todo-shak-team",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"directories": {
+		"test": "tests"
+	},
+	"scripts": {
+		"test": "NODE_ENV=test jest --passWithNoTests  --detectOpenHandles",
+		"dev": "NODE_ENV=development node src/index.js",
+		"start": "NODE_ENV=production node src/index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GSG-G9/todo-shak-team.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/GSG-G9/todo-shak-team/issues"
+	},
+	"homepage": "https://github.com/GSG-G9/todo-shak-team#readme",
+	"devDependencies": {
+		"eslint": "^7.15.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-plugin-import": "^2.22.1",
+		"jest": "^26.6.3",
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.6",
+		"supertest": "^6.0.1"
+	},
+	"dependencies": {
+		"bcrypt": "^5.0.0",
+		"compression": "^1.7.4",
+		"cookie-parser": "^1.4.5",
+		"env2": "^2.2.2",
+		"express": "^4.17.1",
+		"joi": "^17.3.0",
+		"jsonwebtoken": "^8.5.1",
+		"pg": "^8.5.1"
+	}
+}
