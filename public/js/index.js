@@ -2,6 +2,8 @@ const ulContainer = document.getElementById('myUL');
 const todoTextContent = document.getElementById('myInput');
 const addTodoButton = document.getElementById('addTodoButton');
 const todoErr = document.getElementById('todoErr');
+const logoutButton = document.getElementById('logoutButton');
+const userNameSpan = document.getElementById('userNameSpan');
 
 const getTodos = () => {
 	fetch('/todos')
@@ -86,12 +88,37 @@ function displayErr(errElem, errMsg) {
   errElem.innerText = errMsg;
 }
 
+const logoutFunction = ()=>{
+	console.log('logout')
+	fetch('/logout')
+		.then((res)=>res.json())
+		.then(({status})=> {
+			if (status!==200) throw new Error('')
+			window.location.href = '/login'
+		}).catch((err)=> {
+			window.location.href = '../html/500.html'
+		})
+}
 
+
+const getUserName = ()=>{
+	fetch('/user')
+		.then(res => res.json())
+		.then(({data,status})=>{
+			if (status !== 200) throw new Error('');
+			userNameSpan.innerText = data
+		}).catch(()=>{
+			window.location.href = '../html/500.html'
+		})
+}
 window.addEventListener('load', getTodos);
+window.addEventListener('load', getUserName);
 addTodoButton.addEventListener('click', (event)=>{
 	if(!checkTodoTextContent())	return event.preventDefault()
 	addTodo()
 });
+
+logoutButton.addEventListener('click',logoutFunction)
 
 
 
