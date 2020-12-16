@@ -7,6 +7,13 @@ const jwtSign = (msg, secret) =>
       return resolve(token);
     });
   });
+const jwtVerify = (token, secret) =>
+   new Promise((resolve, reject)=>{
+    jwt.verify(token,secret, (err, payload)=>{
+      if(err) return reject(err);
+      return resolve(payload);
+    })
+  })
 
 const {
   getUserId,
@@ -16,10 +23,18 @@ const {
   insertTodo,
   checkEmail,
 } = require("../database/queries");
-
+module.exports.Auth = (req, res, next)=>{
+  if(!req.cookies.userToken) return next(new Error ('No token!'))
+  return jwtVerify(req.cookies.userToken, "asdfghjlhf'124662ewrh")
+  .then((payload) =>{
+    req.userId = payload.userId
+    return next()
+  })
+  .catch((err)=> next(err))
+}
 module.exports.getUserController = (req, res, next) => {
-  const userId = 1;
-  return getUserId(userId)
+  const userId = req.userId
+  getUserId(userId)
     .then(({ rows }) =>
       res.json({ data: rows[0].user_name, msg: "success", status: 200 })
     )
@@ -94,29 +109,28 @@ module.exports.registerUserController = (req, res, next) => {
 };
 
 module.exports.insertTodoController = (req, res, next) => {
-  const userId = 1;
-  const { text_content } = req.body;
-  return insertTodo(userId, text_content)
-    .then(() => res.json({ data: null, msg: "success", status: 200 }))
-    .catch(next);
+//check request token 
+//if not exiest (OUT) if exest ()
+//jwp.verify(userToken,secret key) if ture (Yes you verified) if false (OUT)
+//payload.id
+const { text_content } = req.body;
+insertTodo(req.userId, text_content)
+  .then(() => res.json({ data: null, msg: "success", status: 200 }))
+  .catch(next);
 };
 
+
 module.exports.getTodosController = (req, res, next) => {
-  const userId = 1;
-  return getTodos(userId)
-    .then(({ rows }) => {
-      return res.json({ data: rows, msg: "success", status: 200 }
-    )}
-    
-    
-    )
-    .catch(next);
+getTodos(req.userId)
+  .then(({ rows }) => {
+    return res.json({ data: rows, msg: "success", status: 200 }
+  )})
+  .catch(next);
 };
 
 module.exports.deleteTodoController = (req, res, next) => {
-  const userId = 1;
   const { todoId } = req.body;
-  return deleteTodo(userId, todoId)
-    .then(({rows}) => res.json({ data: rows, msg: "success", status: 200 }))
-    .catch(next);
+deleteTodo(req.userId, todoId)
+  .then(({rows}) => res.json({ data: rows, msg: "success", status: 200 }))
+  .catch(next);
 };
