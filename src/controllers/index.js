@@ -134,3 +134,7 @@ deleteTodo(req.userId, todoId)
   .then(({rows}) => res.json({ data: rows, msg: "success", status: 200 }))
   .catch(next);
 };
+
+module.exports.logoutUserController = (req,res)=>{
+  res.clearCookie('userToken').json({data:null,msg:'logout successfully',status:200})
+}

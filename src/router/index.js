@@ -7,8 +7,21 @@ const {
   insertTodoController,
   getTodosController,
   deleteTodoController,
+  logoutUserController,
   Auth
 } = require('../controllers');
+
+const {
+  getHomePage,
+  getLoginPage,
+  getSingUpPage
+} = require('../controllers/pageControllers')
+
+router.get('/home',getHomePage)
+router.get(['/','/login'],getLoginPage)
+router.get('/singup',getSingUpPage)
+
+router.get('/logout',logoutUserController)
 
 router.post('/login',loginUserController);
 router.get('/user', Auth, getUserController);

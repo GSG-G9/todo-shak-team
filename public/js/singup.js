@@ -88,7 +88,7 @@ signUpForm.addEventListener("submit", function(event) {
     })
   })
     .then(({status})=> {
-      if (status===200) {return window.location.href='../index.html'}
+      if (status===200) {return window.location.href='/home'}
       throw new Error();
     }).catch(err=>window.location.href ='../html/500.html')
 });
