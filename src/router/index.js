@@ -6,14 +6,15 @@ const {
 	registerUserController,
   insertTodoController,
   getTodosController,
-  deleteTodoController
+  deleteTodoController,
+  Auth
 } = require('../controllers');
 
-router.post('/login', loginUserController);
-router.get('/user', getUserController);
-router.post('/register', registerUserController);
-router.post('/todo', insertTodoController);
-router.get('/todos',getTodosController);
-router.delete('/todo', deleteTodoController);
+router.post('/login',loginUserController);
+router.get('/user', Auth, getUserController);
+router.post('/register',registerUserController);
+router.post('/todo', Auth, insertTodoController);
+router.get('/todos',Auth, getTodosController);
+router.delete('/todo', Auth, deleteTodoController);
 
 module.exports = router;
