@@ -5,8 +5,6 @@ const {getTodos ,getUserId, insertTodo , insertUser, deleteTodo , checkEmail} = 
 describe("Test Database Functions", () => {
   beforeEach(()=>build());
 
-test("sum",() => expect(1+1).toBe(2))
-
   test (" Test get todos " , () =>{
   return getTodos(1).then((result) => {
   const actual = result.rows.length;
