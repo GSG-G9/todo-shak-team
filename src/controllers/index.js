@@ -1,5 +1,4 @@
-const {jwtSign,validatePassword} = require('../utils')
-
+const {jwtSign,validatePassword,hashPassword} = require('../utils')
 const {
   getUserId,
   insertUser,
