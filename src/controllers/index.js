@@ -3,8 +3,9 @@ const {
 	validatePassword,
 	hashPassword,
 	validateTextContent,
-  validateSignUp,
-  validateLogin
+	validateSignUp,
+  validateLogin,
+  handleError
 } = require('../utils');
 const {
 	getUserId,
@@ -15,6 +16,7 @@ const {
 	checkEmail,
 } = require('../database/queries');
 const Joi = require('joi');
+const e = require('express');
 
 module.exports.getUserController = (req, res, next) => {
 	const userId = req.userId;
@@ -26,14 +28,21 @@ module.exports.getUserController = (req, res, next) => {
 };
 module.exports.loginUserController = (req, res, next) => {
 	const { email, password } = req.body;
-  const error = validateLogin({ email, password });
+	const error = validateLogin({ email, password });
 
-	if (error) return next(new Error(''));
+  if (error)
+  return next(
+    handleError({
+      status: 400,
+      message: 'Validation Error',
+      data: error.details.map((el) => el.message),
+    })
+  );
 
 	checkEmail(email)
 		.then(({ rowCount, rows }) => {
 			if (!rowCount) {
-				throw new Error('you are not registered yet');
+				throw handleError({status:400,message:'You are not registered yet'})
 			}
 			return Promise.all([
 				validatePassword(password, rows[0].password),
@@ -42,7 +51,7 @@ module.exports.loginUserController = (req, res, next) => {
 		})
 		.then((result) => {
 			if (!result[0]) {
-				throw new Error('incorrect password');
+				throw handleError({status:400,message:'Incorrect password ...'})
 			}
 			return jwtSign({ userId: result[1] });
 		})
@@ -59,12 +68,19 @@ module.exports.loginUserController = (req, res, next) => {
 };
 module.exports.registerUserController = (req, res, next) => {
 	const { userName, email, password, confirmPassword } = req.body;
-  const error = validateSignUp({ userName, email, password, confirmPassword })
-	if (error) return next(new Error(''));
+	const error = validateSignUp({ userName, email, password, confirmPassword });
+	if (error)
+		return next(
+			handleError({
+				status: 400,
+				message: 'Validation Error',
+				data: error.details.map((el) => el.message),
+			})
+		);
 	checkEmail(email)
 		.then(({ rowCount }) => {
 			if (rowCount) {
-				throw new Error('You are registered');
+				throw handleError({status:401,message:'You are registered'})
 			}
 			return hashPassword(password);
 		})
@@ -85,9 +101,16 @@ module.exports.registerUserController = (req, res, next) => {
 };
 
 module.exports.insertTodoController = (req, res, next) => {
-	const { text_content } = req.body;
+  const { text_content } = req.body;
 	const error = validateTextContent({ text_content });
-	if (error) return next(new Error(''));
+  if (error)
+  return next(
+    handleError({
+      status: 400,
+      message: 'Validation Error',
+      data: error.details.map((el) => el.message),
+    })
+  );
 	insertTodo(req.userId, text_content)
 		.then(() => res.json({ data: null, msg: 'success', status: 200 }))
 		.catch(next);

@@ -15,7 +15,7 @@ module.exports.validateSignUp = ({
 	confirmPassword,
 }) => {
 	const schema = Joi.object().keys({
-		userName: Joi.min(3).string().max(50).required(),
+		userName: Joi.string().min(3).max(50).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string()
 			.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
