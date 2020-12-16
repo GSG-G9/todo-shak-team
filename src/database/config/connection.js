@@ -2,11 +2,11 @@ const { Pool } = require("pg");
 require("env2")("./config.env");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 let urlDB = "";
-const { NODE_ENV, PRODUCTION_DB_URL, DEV_DB_URL, TEST_DB_URL } = process.env;
+const { NODE_ENV, DATABASE_URL, DEV_DB_URL, TEST_DB_URL } = process.env;
 
 switch (NODE_ENV) {
   case "production":
-    urlDB = PRODUCTION_DB_URL;
+    urlDB = DATABASE_URL;
     break;
   case "development":
     urlDB = DEV_DB_URL;
@@ -20,7 +20,7 @@ switch (NODE_ENV) {
 
 const options = {
   connectionString: urlDB,
-  SSL: process.env.NODE_ENV === "production",
+  ssl: process.env.NODE_ENV === "production",
 };
 
 module.exports = new Pool(options);

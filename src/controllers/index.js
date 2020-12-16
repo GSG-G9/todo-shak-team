@@ -60,7 +60,7 @@ module.exports.loginUserController = (req, res, next) => {
 				.cookie('userToken', token, {
 					expires: new Date(Date.now() + 3600000),
 					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production',
+					secure: false,
 				})
 				.json({ data: null, msg: 'logged in successfully', status: 200 })
 		)
@@ -93,7 +93,7 @@ module.exports.registerUserController = (req, res, next) => {
 				.cookie('userToken', token, {
 					expires: new Date(Date.now() + 3600000),
 					httpOnly: true,
-					secure: process.env.NODE_ENV === 'production',
+					secure: false,
 				})
 				.json({ data: null, msg: 'registration successfully', status: 200 })
 		)
