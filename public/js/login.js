@@ -44,7 +44,7 @@ password.addEventListener("focusout", checkPw);
 
 
 signUpForm.addEventListener("submit", function(event) {
-  if (!checkEmail() || !checkPw()) {
+  if (!checkEmail()) {
     return event.preventDefault();
   }
   event.preventDefault();
