@@ -49,7 +49,6 @@ module.exports.loginUserController = (req, res, next) =>{
 		return Promise.all([bcrypt.compare(password, rows[0].password), Promise.resolve(rows[0].id)])
 	})
 	.then((result) => {
-		console.log("fkjgfkdfgkd" , result);
 		if (!result[0]){
 			throw new Error("incorrect password");
 		}
@@ -105,7 +104,12 @@ module.exports.insertTodoController = (req, res, next) => {
 module.exports.getTodosController = (req, res, next) => {
   const userId = 1;
   return getTodos(userId)
-    .then(({ rows }) => res.json({ data: rows, msg: "success", status: 200 }))
+    .then(({ rows }) => {
+      return res.json({ data: rows, msg: "success", status: 200 }
+    )}
+    
+    
+    )
     .catch(next);
 };
 
@@ -113,6 +117,6 @@ module.exports.deleteTodoController = (req, res, next) => {
   const userId = 1;
   const { todoId } = req.body;
   return deleteTodo(userId, todoId)
-    .then(() => res.json({ data: rows, msg: "success", status: 200 }))
+    .then(({rows}) => res.json({ data: rows, msg: "success", status: 200 }))
     .catch(next);
 };
