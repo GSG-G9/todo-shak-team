@@ -1,0 +1,142 @@
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Lato", sans-serif,'Courier New', Courier, monospace;
+  font-weight: 300;
+}
+
+/* Style the list items */
+.item{
+  cursor: pointer;
+  position: relative;
+  padding: 2rem;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+.ul .item:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+.item:hover {
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+.item.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+  position: relative;
+}
+
+/* Add a "checked" mark when clicked on */
+.item.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 4px 4px 0;
+  top: 30%;
+  left:0.5em;
+  transform: rotate(45deg);
+  height: 15px;
+  width:10px;
+}
+
+/* Style the close button */
+.close {
+  border-radius:0.5em;
+  display: inline-block;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 2rem;
+  vertical-align: middle;
+}
+
+.close:hover {
+  background-color: rgb(244, 64, 52,0.40);
+  color: white;
+}
+
+/* Style the header */
+.header {
+  position: relative;
+  padding: 3rem;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+/* Clear floats after the header */
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.h2{
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.header ,.h2{
+  background:rgb(243, 243, 243);
+}
+/* Style the input */
+#myInput {
+  outline: none;
+  margin: 0;
+  border: none;
+  border-radius: 0.5em;
+  width: 75%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Style the "Add" button */
+.addBtn {
+  background-color:rgba(75, 66, 66, 0.2);
+  width: 10%;
+  padding: 0.50em;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0.5em;
+  outline:none;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+
+.error {
+  position: absolute;
+  bottom: 10%;
+  text-align: left;
+  left:10%;
+  display: block;
+  width: 70%;
+  min-height: 1.5em;
+  margin: 0.2em auto 0.5em;
+  font-size: 10px;
+  color: red;
+  text-transform: uppercase;
+}

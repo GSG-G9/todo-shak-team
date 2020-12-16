@@ -1,14 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <title>signUp</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
+  <section class="signup">
+    <h1>Sign up</h1>
 
+    <form class="signup-form" id="signup-form" novalidate>
+      <label for="username">User Name:
+        <input id="username" name="userName" type="text" required minlength="3" maxlength="50" />
+      </label>
+      <p id="userNameErr" class="error"></p>
+      <label for="email">Email:
+        <input id="email" name="email" type="email" required />
+      </label>
+      <p id="emailErr" class="error"></p>
+      <label for="password">Password:
+        <input id="password" name="password" type="password" required
+          pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" />
+      </label>
+      <p id="passwordErr" class="error"></p>
+      <label for="confirmPassword">Confirm password:
+        <input id="confirmPassword" name="confirmPassword" type="password" required />
+      </label>
+      <p id="confirmErr" class="error"></p>
+      <button>signUp</button>
+      <div>
+        <a href="./login.html"><button type="button">login</button></a>
+      </div>
+    </form>
+  </section>
+  <script src="../js/singup.js"></script>
 </body>
 
 </html>

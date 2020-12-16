@@ -1,6 +1,6 @@
 const { Pool } = require("pg");
 require("env2")("./config.env");
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 let urlDB = "";
 const { NODE_ENV, PRODUCTION_DB_URL, DEV_DB_URL, TEST_DB_URL } = process.env;
 
