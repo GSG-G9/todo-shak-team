@@ -7,7 +7,7 @@
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "NODE_ENV=test jest --passWithNoTests  --detectOpenHandles",
+		"test": "NODE_ENV=test jest --detectOpenHandles",
 		"dev": "NODE_ENV=development node src/index.js",
 		"start": "NODE_ENV=production node src/index.js",
 		"buildD": "NODE_ENV=development node src/database/config/index.js",

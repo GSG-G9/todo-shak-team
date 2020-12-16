@@ -14,4 +14,4 @@ env:
   - PGPORT=5432
 test:
   adapter: postgresql
-  database: db_test_posts
+  database: db_test_todo
